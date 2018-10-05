@@ -15,4 +15,5 @@ class ImageRect:
         self.image = img
 
 
-    def blit(self): self.screen.blit(self.image, self.rect)
+    def blit(self):
+        self.screen.blit(self.image, self.rect)

@@ -22,7 +22,7 @@ class Game:
 
     def update_screen(self):
         self.screen.fill(Game.BLACK)
-        #  self.maze.blitme()
+        self.maze.blitme()
         pygame.display.flip()
 
 

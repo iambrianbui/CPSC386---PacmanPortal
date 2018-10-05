@@ -1,5 +1,11 @@
-xxxxxxxxxx
-x........x
-xxxxxxxxxx
-x........x
-x
+....5....1....5....2....5....3....5....4....5....5
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+x......................xxx.......................x
+x......................xxx.......................x
+x......................xxx.......................x
+x...xxxxx...xxxxxxxx...xxx...xxxxxxxx...xxxxx....x
+x...xxxxx...xxxxxxxx...xxx...xxxxxxxx...xxxxx....x
+x...xxxxx...xxxxxxxx...xxx...xxxxxxxx...xxxxx....x
+x................................................x
+x................................................x
+x................................................x
