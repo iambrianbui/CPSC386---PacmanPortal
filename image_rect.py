@@ -14,6 +14,5 @@ class ImageRect:
         self.rect.top -= self.rect.height
         self.image = img
 
-
     def blit(self):
         self.screen.blit(self.image, self.rect)
