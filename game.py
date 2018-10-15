@@ -18,11 +18,15 @@ class Game:
         self.pacman = Pacman(self.screen)
 
     def play(self):
+        pacman = self.pacman
+        maze = self.maze
+
         eloop = EventLoop(status=False)
 
         while not eloop.finished:
-            eloop.check_events(self.pacman)
-            eloop.update_screen(self.pacman)
+            eloop.check_events(pacman)
+            eloop.update_screen(pacman)
+            pacman.update(maze)
             self.update_screen()
 
     def update_screen(self):

@@ -1,9 +1,10 @@
 import pygame
+from pygame.sprite import Sprite
 
 from image_rect import ImageRect
 
 
-class Pacman:
+class Pacman(Sprite):
 
     def __init__(self, screen):
         super(Pacman, self).__init__()
@@ -11,6 +12,8 @@ class Pacman:
         self.screen_rect = screen.get_rect()
 
         self.pacimg = ImageRect(screen, 'pacman', 32, 32)
+
+
 
         #  Movement flag
         self.moving_up = False
@@ -24,8 +27,14 @@ class Pacman:
     def blitme(self):
         self.screen.blit(self.pacimg.image, self.pacimg.rect)
 
-    def update(self):
+    def update(self, maze):
+        if pygame.sprite.spritecollideany(self.pacimg.rect, maze.bricks):
+            print("sdf")
         if self.moving_up and self.pacimg.rect.top > self.screen_rect.top:
-            self.pacimg.center -= 1
-        if self.moving_down and self.pacimg.rect.bottom > self.screen_rect.bottom:
-            self.pacimg.center += 1
+            self.pacimg.rect.centery -= 1
+        if self.moving_down and self.pacimg.rect.bottom < self.screen_rect.bottom:
+            self.pacimg.rect.centery += 1
+        if self.moving_left and self.pacimg.rect.left > self.screen_rect.left:
+            self.pacimg.rect.centerx -= 1
+        if self.moving_right and self.pacimg.rect.right < self.screen_rect.right:
+            self.pacimg.rect.centerx += 1

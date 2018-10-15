@@ -1,8 +1,9 @@
 import pygame
+from pygame.sprite import Sprite
 
 from image_rect import ImageRect
 
-class Maze:
+class Maze(Sprite):
     BRICK_SIZE = 16
 
     def __init__(self, screen, mazefile, brickfile):
