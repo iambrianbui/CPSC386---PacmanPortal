@@ -13,6 +13,7 @@ class Maze(Sprite):
             self.rows = f.readlines()
 
         self.bricks = []
+
         sz = Maze.BRICK_SIZE
         self.brick = ImageRect(screen, brickfile, sz, sz)
 
@@ -38,6 +39,8 @@ class Maze(Sprite):
     def blitme(self):
         for rect in self.bricks:
             self.screen.blit(self.brick.image, rect)
+
+
 
 
 

@@ -1,4 +1,5 @@
 import pygame
+from pygame.sprite import Group
 
 from event_loop import EventLoop
 from maze import Maze
