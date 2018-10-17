@@ -11,6 +11,7 @@ class EventLoop:
     def check_events(pacman):
 
         for event in pygame.event.get():
+
             if event.type == pygame.QUIT:
                 sys.exit()
 
@@ -42,3 +43,4 @@ def check_keyup_events(event, pacman):
         pacman.moving_left = False
     elif event.key == pygame.K_d or event.key == pygame.K_RIGHT:
         pacman.moving_right = False
+

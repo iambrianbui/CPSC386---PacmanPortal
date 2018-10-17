@@ -30,9 +30,7 @@ class Pacman(Sprite):
         self.screen.blit(self.pacimg.image, self.pacimg.rect)
 
     def update(self, maze):
-
-        if self.rect.colliderect(maze.bricks):
-            print("sdf")
+        self.check_collision(maze)
         if self.moving_up and self.pacimg.rect.top > self.screen_rect.top:
             self.pacimg.rect.centery -= 1
         if self.moving_down and self.pacimg.rect.bottom < self.screen_rect.bottom:
@@ -41,3 +39,17 @@ class Pacman(Sprite):
             self.pacimg.rect.centerx -= 1
         if self.moving_right and self.pacimg.rect.right < self.screen_rect.right:
             self.pacimg.rect.centerx += 1
+
+    def check_collision(self, maze):
+        for nrow in range(len(maze.bricks)):
+            if self.rect.colliderect(maze.bricks[nrow]):
+                if self.moving_up:
+                    self.rect.top = maze.bricks[nrow].bottom + 1
+                elif self.moving_down:
+                    self.rect.bottom = maze.bricks[nrow].top - 1
+                elif self.moving_left:
+                    self.rect.left = maze.bricks[nrow].right + 1
+                elif self.moving_right:
+                    self.rect.left = maze.bricks[nrow].right - 1
+
+
