@@ -5,6 +5,7 @@ from event_loop import EventLoop
 from maze import Maze
 from pacman import Pacman
 from expandfile import ExpandFile
+from game_stats import GameStats
 
 
 class Game:
@@ -21,6 +22,8 @@ class Game:
 
         self.maze = Maze(self.screen, 'mazefile_expanded.txt', 'brick', 'orangeportal', 'blueportal', 'shield', 'point')
 
+        self.gamestats = GameStats()
+
         self.pacman = Pacman(self.screen)
 
 
@@ -33,7 +36,7 @@ class Game:
         while not eloop.finished:
             eloop.check_events(pacman)
             eloop.update_screen(pacman)
-            pacman.update(maze)
+            pacman.update(maze, self.gamestats)
             self.update_screen()
 
     def update_screen(self):

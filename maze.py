@@ -22,7 +22,7 @@ class Maze:
         self.shield = ImageRect(screen, shieldfile, sz, sz)
         self.blueportal = ImageRect(screen, blueportalfile, 20 * sz, 20 * sz)
         self.orangeportal = ImageRect(screen, orangeportalfile, 20 * sz, 20 * sz)
-        self.point = ImageRect(screen, pointfile, int(0.5*sz), int(0.5*sz))
+        self.point = ImageRect(screen, pointfile, 2 * sz, 2 * sz)
 
         self.deltax = self.deltay = Maze.BRICK_SIZE
 
@@ -38,6 +38,7 @@ class Maze:
         rpoint = self.point.rect
         w, h = r.width, r.height
         dx, dy = self.deltax, self.deltay
+        index = 0
 
         for nrow in range(len(self.rows)):
             row = self.rows[nrow]
@@ -51,8 +52,12 @@ class Maze:
                     self.orangeportal.rect = pygame.Rect(dx + 20, (nrow - 12) * dy, rorange.width, rorange.height)
                 elif col == 'b':
                     self.blueportal.rect = pygame.Rect((ncol - 12) * dx, (nrow - 6) * dy, rblue.width, rblue.height)
-                elif col == 'p':
-                    self.points.append(pygame.Rect(ncol * dx, nrow * dy, rpoint.width, rpoint.height))
+                elif col == '.' and (nrow % 16 == 13):
+                    if index > 20:
+                        self.points.append(pygame.Rect(ncol * dx, nrow * dy, rpoint.width, rpoint.height))
+                        index = 0
+                    else:
+                        index += 1
 
     def blitme(self):
         for rect in self.bricks:

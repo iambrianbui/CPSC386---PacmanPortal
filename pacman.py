@@ -29,14 +29,14 @@ class Pacman(Sprite):
     def blitme(self):
         self.screen.blit(self.pacimg.image, self.pacimg.rect)
 
-    def update(self, maze):
-        self.check_collision(maze)
+    def update(self, maze, gamestats):
+        self.check_collision(maze, gamestats)
         if self.moving_up or self.moving_down:
             self.handle_movement()
         elif self.moving_left or self.moving_right:
             self.handle_movement()
 
-    def check_collision(self, maze):
+    def check_collision(self, maze, gamestats):
         for nrow in range(len(maze.bricks)):
             if self.rect.colliderect(maze.bricks[nrow]):
                 if self.moving_up:
@@ -48,6 +48,13 @@ class Pacman(Sprite):
                 elif self.moving_right:
                     self.rect.right = maze.bricks[nrow].left - 4
         self.handle_warp(maze)
+        for nrow in range(len(maze.points)):
+            if self.rect.colliderect(maze.points[nrow]):
+                gamestats.points += 10
+                #  maze.points.remove(maze.points[nrow])
+                print(gamestats.points)
+
+
 
     def handle_warp(self, maze):
         if self.rect.colliderect(maze.orangeportal) and self.can_warp:
