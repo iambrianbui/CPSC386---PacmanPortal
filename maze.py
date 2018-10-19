@@ -1,5 +1,7 @@
 import pygame
 from image_rect import ImageRect
+from pygame.sprite import Group
+from point import Point
 
 
 class Maze:
@@ -15,27 +17,25 @@ class Maze:
         self.bricks = []
         self.shields = []
         self.portals = []
-        self.points = []
+        self.points = Group()
 
         sz = Maze.BRICK_SIZE
         self.brick = ImageRect(screen, brickfile, sz, sz)
         self.shield = ImageRect(screen, shieldfile, sz, sz)
-        self.blueportal = ImageRect(screen, blueportalfile, 20 * sz, 20 * sz)
-        self.orangeportal = ImageRect(screen, orangeportalfile, 20 * sz, 20 * sz)
-        self.point = ImageRect(screen, pointfile, 2 * sz, 2 * sz)
+        self.blueportal = ImageRect(screen, blueportalfile, 10 * sz, 20 * sz)
+        self.orangeportal = ImageRect(screen, orangeportalfile, 20 * sz, 10 * sz)
 
         self.deltax = self.deltay = Maze.BRICK_SIZE
 
-        self.build()
+        self.build(self.points, self.screen)
 
     def __str__(self): return 'maze(' + self.filename + ')'
 
-    def build(self):
+    def build(self, points, screen):
         r = self.brick.rect
         rshield = self.shield.rect
         rblue = self.blueportal.rect
         rorange = self.orangeportal.rect
-        rpoint = self.point.rect
         w, h = r.width, r.height
         dx, dy = self.deltax, self.deltay
         index = 0
@@ -49,15 +49,16 @@ class Maze:
                 elif col == 's':
                     self.shields.append(pygame.Rect(ncol * dx, nrow * dy, rshield.width, rshield.height))
                 elif col == 'o':
-                    self.orangeportal.rect = pygame.Rect(dx + 20, (nrow - 12) * dy, rorange.width, rorange.height)
+                    self.orangeportal.rect = pygame.Rect(dx + 12, (nrow - 6) * dy, rorange.width, rorange.height)
                 elif col == 'b':
                     self.blueportal.rect = pygame.Rect((ncol - 12) * dx, (nrow - 6) * dy, rblue.width, rblue.height)
-                elif col == '.' and (nrow % 16 == 13):
-                    if index > 20:
-                        self.points.append(pygame.Rect(ncol * dx, nrow * dy, rpoint.width, rpoint.height))
-                        index = 0
-                    else:
-                        index += 1
+                elif col == 'p':
+                    point = Point(screen)
+                    point.x = ncol * dx
+                    point.y = nrow * dy
+                    point.rect.x = point.x
+                    point.rect.y = point.y
+                    points.add(point)
 
     def blitme(self):
         for rect in self.bricks:
@@ -66,5 +67,6 @@ class Maze:
             self.screen.blit(self.shield.image, rect)
         self.orangeportal.blit()
         self.blueportal.blit()
-        for rect in self.points:
-            self.screen.blit(self.point.image, rect)
+        for point in self.points:
+            point.blit()
+

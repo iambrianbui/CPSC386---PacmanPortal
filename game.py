@@ -24,8 +24,9 @@ class Game:
 
         self.gamestats = GameStats()
 
+        self.pacmanGroup = Group()
         self.pacman = Pacman(self.screen)
-
+        self.pacmanGroup.add(self.pacman)
 
     def play(self):
         pacman = self.pacman
@@ -36,7 +37,7 @@ class Game:
         while not eloop.finished:
             eloop.check_events(pacman)
             eloop.update_screen(pacman)
-            pacman.update(maze, self.gamestats)
+            pacman.update(maze, self.gamestats, self.pacmanGroup)
             self.update_screen()
 
     def update_screen(self):
