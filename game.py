@@ -3,6 +3,7 @@ from pygame.sprite import Group
 
 from event_loop import EventLoop
 from maze import Maze
+from ghost import Ghost
 from pacman import Pacman
 from expandfile import ExpandFile
 from game_stats import GameStats
@@ -31,6 +32,13 @@ class Game:
     def play(self):
         pacman = self.pacman
         maze = self.maze
+        ghost = []
+        for i in range(1):
+            g = Ghost(self.screen)
+            g.type = i
+            g.x += 30 * i
+            g.prep_ghost()
+            ghost.append(g)
 
         eloop = EventLoop(status=False)
 
@@ -38,6 +46,8 @@ class Game:
             eloop.check_events(pacman)
             eloop.update_screen(pacman)
             pacman.update(maze, self.gamestats, self.pacmanGroup)
+            for i in range(1):
+                ghost[i].blit()
             self.update_screen()
 
     def update_screen(self):
